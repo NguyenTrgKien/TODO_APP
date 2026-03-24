@@ -3,7 +3,7 @@ export const getStatusDeadline = (deadline: number) => {
 
   const now = Date.now();
   const rest = deadline - now;
-  const oneDay = 24 * 60 * 60 * 1000;
+  const oneDay = 48 * 60 * 60 * 1000;
 
   if (rest < 0) return "expired";
   if (rest < oneDay) return "warning";

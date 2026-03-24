@@ -3,6 +3,7 @@ import { useState } from "react";
 import { STATUS } from "../config/constants";
 import type { Status, Task } from "../types/index.type";
 import { useTask } from "../hooks/useTask";
+import { toast } from "react-toastify";
 
 interface UpdateStatusModalProp {
   task: Task;
@@ -15,6 +16,7 @@ function UpdateStatusModal({ task, onClose }: UpdateStatusModalProp) {
 
   const handleUpdateStatusTask = () => {
     updateStatus(task.id, data);
+    toast.success(`Đã cập nhật trạng thái!`);
     onClose();
   };
 

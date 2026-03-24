@@ -4,6 +4,7 @@ import { PRIORITY, STATUS } from "../config/constants";
 import React, { useState } from "react";
 import type { Priority, Status, Task } from "../types/index.type";
 import { useTask } from "../hooks/useTask";
+import { toast } from "react-toastify";
 
 interface ActionTaskModel {
   action: "add" | "edit";
@@ -81,8 +82,10 @@ function ActionTaskModel({ action, dataUpdate, onClose }: ActionTaskModel) {
     };
     if (action === "add") {
       addTask(newTask);
+      toast.success("Thêm task thành công!");
     } else {
       editTask(newTask);
+      toast.success("Đã cập nhật task!");
     }
     onClose();
   };

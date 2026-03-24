@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useTask } from "../hooks/useTask";
+import { toast } from "react-toastify";
 
 interface DeleteTaskModalProp {
   tasks: string[];
@@ -11,6 +12,7 @@ function DeleteTaskModal({ tasks, onClose }: DeleteTaskModalProp) {
 
   const handleDeleteTasks = () => {
     deleteTasks(tasks);
+    toast.success(`Đã xóa ${tasks.length > 1 ? "các task" : "task"}!`);
     onClose();
   };
 
