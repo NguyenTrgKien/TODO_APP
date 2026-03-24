@@ -63,7 +63,7 @@ function Header({ viewType, onViewChange }: HeaderProp) {
           onClick={() => setOpenActionTaskModal(true)}
         >
           <CirclePlus size={14} />
-          <span>Thêm task</span>
+          <span>Tạo</span>
         </button>
       </div>
 

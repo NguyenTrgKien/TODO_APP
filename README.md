@@ -1,6 +1,6 @@
-## Todo App - Trang quản lý Công việc Cá Nhân
+# Todo App - Trang quản lý Công việc Cá Nhân
 
-## Cài đặt và chạy local
+# Cài đặt và chạy local
 
 ### Yêu cầu
 
@@ -9,13 +9,13 @@
 
 ### Các bước cài đặt
 
-## 1. Clone respository
+## 1. Clone repository
 
 git clone https://github.com/NguyenTrgKien/TODO_APP.git
 
 ## 2. Di chuyển vào thư mục dự án
 
-cd TEST_INTERN_REACT
+cd TODO_APP
 
 ## 3. Cài đặt dependencies
 
@@ -59,15 +59,15 @@ thời điểm hiện tại, thay vì lưu thành một status riêng. Lý do:
 - "Đã quá hạn": deadline đã qua
 - Không hiển thị cảnh báo nếu task đã DONE
 
-### 6. Responsive
+### 5. Responsive
 
 - StatBar: grid 1 → 2 → 4 cột theo breakpoint
 - BoardView: grid 1 → 2 → 3 cột theo breakpoint
 - ListView: scroll ngang trên mobile
 
-### 7. Dark mode
+### 6. Theme
 
-Hỗ trợ dark mode thông qua Tailwind CSS dark: variant, toggle lưu vào
+Cấu hình sử dụng theme thông qua Tailwind CSS dark: variant, toggle lưu vào
 localStorage để giữ theme khi reload trang.
 
 ---
