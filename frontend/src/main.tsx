@@ -20,6 +20,13 @@ createRoot(document.getElementById("root")!).render(
       pauseOnHover
       theme="light"
       transition={Bounce}
+      style={{
+        top: "1rem",
+        right: "1rem",
+        left: "auto",
+        width: "auto",
+        maxWidth: "100vw",
+      }}
     />
     <ThemeProvider>
       <TaskProvider>

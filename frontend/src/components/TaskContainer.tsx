@@ -61,7 +61,7 @@ function TaskContainer({ viewType }: TaskContainerProp) {
             <span
               className={`p-2 rounded-md ${selectTasks.length > 0 ? "text-red-500 bg-red-50 hover:bg-red-100 hover:text-red-600" : ""} hover:cursor-pointer`}
               onClick={() => {
-                if (selectTasks.length > 0) {
+                if (selectTasks.length > 0 && tasks.length > 0) {
                   setOpenDeleteModal(selectTasks);
                 }
               }}
