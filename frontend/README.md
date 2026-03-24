@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# Todo App - Trang quản lý Công việc Cá Nhân
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Cài đặt và chạy local
 
-Currently, two official plugins are available:
+### Yêu cầu
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js >= 18.0.0
+- npm >= 9.0.0
 
-## React Compiler
+### Các bước cài đặt
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 1. Clone respository
 
-## Expanding the ESLint configuration
+git clone https://github.com/<NguyenTrgKien>/<TODO_APP>.git
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# 2. Di chuyển vào thư mục dự án
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+cd TEST_INTERN_REACT
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# 3. Cài đặt dependencies
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+npm install
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 4. Chạy ứng dụng
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# 5. Mở trình duyệt tại
+
+http://localhost:5173
+
+---
+
+## 🛠 Quyết định kỹ thuật
+
+### 1. Quản lý state với Context API
+
+Dùng Context API để quản lý state toàn cục vì ứng dụng có quy mô nhỏ,
+không cần boilerplate phức tạp. Context API đủ đáp ứng yêu cầu chia sẻ state
+giữa các component.
+
+### 2. Lưu dữ liệu với localStorage
+
+Dữ liệu task được lưu vào localStorage để không bị mất khi tắt trình duyệt.
+Mỗi khi state thay đổi, dữ liệu được sync xuống localStorage thông qua useEffect.
+
+### 3. Xử lý "Quá hạn" theo hướng tính toán động
+
+Task "quá hạn" được tính động dựa trên trường deadline (timestamp) so với
+thời điểm hiện tại, thay vì lưu thành một status riêng. Lý do:
+
+- Tránh conflict dữ liệu (task vừa DONE vừa EXPIRED)
+- Không cần phải cập nhật expired định kì
+- Status chỉ phản ánh tiến độ công việc (TODO, IN_PROGRESS, DONE)
+
+### 4. Cảnh báo deadline
+
+- "Sắp tới hạn": còn <= 2 ngày
+- "Đã quá hạn": deadline đã qua
+- Không hiển thị cảnh báo nếu task đã DONE
+
+### 6. Responsive
+
+- StatBar: grid 1 → 2 → 4 cột theo breakpoint
+- BoardView: grid 1 → 2 → 3 cột theo breakpoint
+- ListView: scroll ngang trên mobile
+
+### 7. Dark mode
+
+Hỗ trợ dark mode thông qua Tailwind CSS dark: variant, toggle lưu vào
+localStorage để giữ theme khi reload trang.
+
+---
+
+## Những điểm cải thiện nếu có thêm thời gian
+
+- **Phân trang**: thêm pagination hoặc infinite scroll khi có nhiều task
+- **Hỗ trợ đa ngôn ngữ**: thêm ngôn ngữ tiếng anh để có thể chuyển đổi giữa hai ngôn ngữ
