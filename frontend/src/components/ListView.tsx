@@ -6,6 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import ActionTaskModel from "./ActionTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal";
 import { useTask } from "../hooks/useTask";
+import { getStatusDeadline } from "../utils/getStatusDeadline";
 
 interface ListViewProp {
   filteredTask: Task[];
@@ -13,12 +14,19 @@ interface ListViewProp {
 
 function ListView({ filteredTask }: ListViewProp) {
   const { selectTasks, setSelectTasks } = useTask();
-  const [openActionTaskModal, setOpenActionTaskModal] = useState(false);
+  const [openActionTaskModal, setOpenActionTaskModal] = useState<Task | null>(
+    null,
+  );
   const [openDeleteModal, setOpenDeleteModal] = useState<string[] | null>(null);
 
   return (
-    <div className="rounded-xl overflow-hidden border border-gray-200">
-      <table className="w-full table-fixed">
+    <div
+      className="rounded-xl overflow-auto border border-gray-200"
+      style={{
+        scrollbarWidth: "none",
+      }}
+    >
+      <table className="w-full table-fixed min-w-[600px]">
         <thead>
           <tr className="border-b border-b-gray-300">
             <th className="text-left py-5 px-4 font-semibold w-[45%]">Task</th>
@@ -36,6 +44,10 @@ function ListView({ filteredTask }: ListViewProp) {
         <tbody>
           {filteredTask.length > 0 ? (
             filteredTask.map((task) => {
+              const statusDeadline =
+                task.deadline &&
+                task.status !== "DONE" &&
+                getStatusDeadline(task.deadline);
               return (
                 <tr key={task.id}>
                   <td className="text-left py-5 px-4 w-[45%]">
@@ -45,7 +57,7 @@ function ListView({ filteredTask }: ListViewProp) {
                         style={{
                           scale: "1.3",
                         }}
-                        className="mt-1"
+                        className="mt-1 z-0"
                         checked={selectTasks.includes(task.id)}
                         onChange={(e) => {
                           if (e.target.checked) {
@@ -57,7 +69,35 @@ function ListView({ filteredTask }: ListViewProp) {
                           }
                         }}
                       />
-                      <p>{task.title}</p>
+                      <div>
+                        <div className="flex items-center gap-2.5">
+                          <p className="text-[1.6rem] md:text-[1.8rem] text-gray-900">
+                            {task.title}
+                          </p>
+
+                          <div>
+                            {statusDeadline && (
+                              <>
+                                {statusDeadline === "expired" && (
+                                  <span className="text-red-600 text-[1.2rem] px-4 py-1 rounded-full bg-red-50">
+                                    Đã quá hạn
+                                  </span>
+                                )}
+                                {statusDeadline === "warning" && (
+                                  <span className="text-amber-600 text-[1.2rem] p-4 py-1 rounded-full bg-red-50">
+                                    Sắp tới hạn
+                                  </span>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        </div>
+                        {task.description && (
+                          <p className="text-gray-600 text-[1.2rem] truncate max-w-[20rem]">
+                            {task.description}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </td>
                   <td className="text-left py-5 px-4 w-[20%]">
@@ -74,13 +114,15 @@ function ListView({ filteredTask }: ListViewProp) {
                     <div className="flex items-center justify-center gap-2.5">
                       <button
                         className="p-4 rounded-md bg-amber-500 hover:bg-amber-600 text-white transition-colors duration-300"
-                        onClick={() => setOpenActionTaskModal(true)}
+                        onClick={() => setOpenActionTaskModal(task)}
                       >
                         <Edit size={16} />
                       </button>
                       <button
                         className="p-4 rounded-md bg-red-500 hover:bg-red-600 text-white transition-colors duration-300"
-                        onClick={() => setOpenDeleteModal([task.id])}
+                        onClick={() => {
+                          setOpenDeleteModal([task.id]);
+                        }}
                       >
                         <Trash size={16} />
                       </button>
@@ -102,9 +144,9 @@ function ListView({ filteredTask }: ListViewProp) {
       <AnimatePresence>
         {openActionTaskModal && (
           <ActionTaskModel
-            action="add"
-            dataUpdate={null}
-            onClose={() => setOpenActionTaskModal(false)}
+            action="edit"
+            dataUpdate={openActionTaskModal}
+            onClose={() => setOpenActionTaskModal(null)}
           />
         )}
       </AnimatePresence>

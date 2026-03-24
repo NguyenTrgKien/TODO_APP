@@ -17,7 +17,7 @@ export interface TaskForm {
   description?: string;
   status: Status;
   priority: Priority;
-  deadline?: string;
+  deadline?: number;
 }
 
 function ActionTaskModel({ action, dataUpdate, onClose }: ActionTaskModel) {
@@ -30,7 +30,7 @@ function ActionTaskModel({ action, dataUpdate, onClose }: ActionTaskModel) {
         description: dataUpdate.description,
         status: dataUpdate.status || "TODO",
         priority: dataUpdate.priority || "MEDIUM",
-        deadline: dataUpdate.deadline || "",
+        deadline: dataUpdate.deadline || undefined,
       };
     }
     return {
@@ -39,7 +39,7 @@ function ActionTaskModel({ action, dataUpdate, onClose }: ActionTaskModel) {
       description: "",
       status: "TODO",
       priority: "MEDIUM",
-      deadline: "",
+      deadline: undefined,
     };
   });
   const [errors, setErrors] = useState({
@@ -77,7 +77,7 @@ function ActionTaskModel({ action, dataUpdate, onClose }: ActionTaskModel) {
       description: data.description ?? "",
       status: data.status,
       priority: data.priority,
-      deadline: data.deadline ?? "",
+      deadline: data.deadline ?? undefined,
     };
     if (action === "add") {
       addTask(newTask);
@@ -93,16 +93,16 @@ function ActionTaskModel({ action, dataUpdate, onClose }: ActionTaskModel) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 w-full h-full flex items-center justify-center bg-[#3333335d]  transition-all duration-300"
+      className="fixed inset-0 w-full h-full flex items-center justify-center bg-[#3333335d] transition-all duration-300 z-[600]"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
         transition={{ duration: 0.3 }}
-        className="relative w-[55rem] h-auto rounded-2xl bg-white shadow-xl p-10"
+        className="relative w-[90%] md:w-[50rem] lg:w-[55rem] h-auto rounded-2xl bg-white shadow-xl p-10"
       >
-        <h2 className="text-[1.8rem] font-semibold mb-10">
+        <h2 className="text-[1.6rem] md:text-[1.8rem] font-semibold mb-10">
           {action === "add" ? "Thêm task mới" : "Chỉnh sửa task"}{" "}
         </h2>
         <CircleX

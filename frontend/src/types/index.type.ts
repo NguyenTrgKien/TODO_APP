@@ -9,7 +9,7 @@ export interface Task {
   description: string;
   status: Status;
   priority: Priority;
-  deadline?: string;
+  deadline?: number;
   createdAt: number;
   updatedAt?: number;
 }

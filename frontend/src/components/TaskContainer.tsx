@@ -19,7 +19,6 @@ function TaskContainer({ viewType }: TaskContainerProp) {
     setSelectTasks,
   } = useTask();
   const [openDeleteModal, setOpenDeleteModal] = useState<string[] | null>(null);
-  const [isChecked, setIsChecked] = useState(false);
 
   const filtered = () => {
     return tasks.filter((task) => {
@@ -29,40 +28,47 @@ function TaskContainer({ viewType }: TaskContainerProp) {
       const matchStatus =
         filterStatus === "ALL" || filterStatus === task.status;
       const matchPriority =
-        filterStatus === "ALL" || filterPriority === task.priority;
+        filterPriority === "ALL" || filterPriority === task.priority;
       return matchTitle && matchStatus && matchPriority;
     });
   };
 
+  const isAllChecked =
+    filtered().length > 0 &&
+    filtered().every((task) => selectTasks.includes(task.id));
+
   return (
-    <div className="w-full h-auto rounded-xl p-10 bg-white shadow-sm">
-      <div className="flex items-center justify-between">
+    <div className="w-full h-auto rounded-xl p-8 lg:p-10 bg-white shadow-sm">
+      <div className="flex items-start justify-between">
         <h3 className="font-semibold mb-10">Danh sách task</h3>
-        {tasks.length > 0 && (
-            <div className="flex items-center gap-4">
-                <input
-                type="checkbox"
-                style={{
-                    scale: "1.3",
-                }}
-                onChange={(e) => {
-                    if (e.target.checked) {
-                    setIsChecked(true);
-                    const allTaskId = tasks.map((it) => it.id);
-                    setSelectTasks(allTaskId);
-                    } else {
-                    setIsChecked(false);
-                    setSelectTasks([]);
-                    }
-                }}
-                />
-                <span
-                className={`p-2 rounded-md ${isChecked ? "text-red-500 bg-red-50 hover:bg-red-100 text-red-600" : ""} hover:cursor-pointer`}
-                onClick={() => setOpenDeleteModal(selectTasks)}
-                >
-                Xóa
-                </span>
-            </div>
+        {tasks.length > 0 && viewType === "list" && (
+          <div className="flex items-center gap-4">
+            <input
+              type="checkbox"
+              style={{
+                scale: "1.3",
+              }}
+              checked={isAllChecked}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  const allTaskId = tasks.map((it) => it.id);
+                  setSelectTasks(allTaskId);
+                } else {
+                  setSelectTasks([]);
+                }
+              }}
+            />
+            <span
+              className={`p-2 rounded-md ${selectTasks.length > 0 ? "text-red-500 bg-red-50 hover:bg-red-100 hover:text-red-600" : ""} hover:cursor-pointer`}
+              onClick={() => {
+                if (selectTasks.length > 0) {
+                  setOpenDeleteModal(selectTasks);
+                }
+              }}
+            >
+              Xóa
+            </span>
+          </div>
         )}
       </div>
       {viewType === "board" ? (
