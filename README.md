@@ -1,6 +1,6 @@
-# Todo App - Trang quản lý Công việc Cá Nhân
+## Todo App - Trang quản lý Công việc Cá Nhân
 
-# Cài đặt và chạy local
+## Cài đặt và chạy local
 
 ### Yêu cầu
 
@@ -9,23 +9,23 @@
 
 ### Các bước cài đặt
 
-# 1. Clone respository
+## 1. Clone respository
 
-git clone https://github.com/<NguyenTrgKien>/<TODO_APP>.git
+git clone https://github.com/NguyenTrgKien/TODO_APP.git
 
-# 2. Di chuyển vào thư mục dự án
+## 2. Di chuyển vào thư mục dự án
 
 cd TEST_INTERN_REACT
 
-# 3. Cài đặt dependencies
+## 3. Cài đặt dependencies
 
 npm install
 
-# 4. Chạy ứng dụng
+## 4. Chạy ứng dụng
 
 npm run dev
 
-# 5. Mở trình duyệt tại
+## 5. Mở trình duyệt tại
 
 http://localhost:5173
 
