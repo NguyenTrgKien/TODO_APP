@@ -31,7 +31,7 @@ function UpdateStatusModal({ task, onClose }: UpdateStatusModalProp) {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
         transition={{ duration: 0.3 }}
-        className="relative w-[90%] lg:w-[40rem] h-auto rounded-2xl bg-white shadow-xl p-10"
+        className="relative w-[90%] lg:w-[40rem] h-auto rounded-2xl bg-white dark:bg-gray-600 shadow-xl p-10"
       >
         <h2 className="text-[1.6rem] md:text-[1.8rem] font-medium mb-10">
           Cập nhật trạng thái task
@@ -39,7 +39,7 @@ function UpdateStatusModal({ task, onClose }: UpdateStatusModalProp) {
         <select
           name="status"
           value={data}
-          className="w-full h-[4.2rem] rounded-md border border-gray-300 focus:border-cyan-400 overflow-visible"
+          className="w-full h-[4.2rem] rounded-md border border-gray-300 focus:border-cyan-400 overflow-visible dark:text-gray-100 dark:bg-gray-700 dark:border-gray-500"
           onChange={(e) => setData(e.target.value as Status)}
         >
           {Object.entries(STATUS).map(([key, value]) => {
@@ -53,7 +53,7 @@ function UpdateStatusModal({ task, onClose }: UpdateStatusModalProp) {
 
         <div className="flex items-center gap-2.5 justify-end mt-10">
           <button
-            className="px-5 py-2 rounded-md bg-gray-200 hover:bg-gray-300 transition-colors duration-300"
+            className="px-5 py-2 rounded-md bg-gray-200 hover:bg-gray-300 transition-colors duration-300 dark:text-gray-800"
             onClick={onClose}
           >
             Hủy

@@ -44,19 +44,26 @@ function BoardView({ filteredTask }: BoardViewProp) {
             return (
               <div
                 key={task.id}
-                className="w-full h-auto border border-gray-200 shadow-sm p-5 rounded-xl space-y-5"
+                className="w-full h-auto border border-gray-200 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-500 shadow-sm p-5 rounded-xl space-y-5 transition-colors duration-300"
               >
-                <div className="flex items-center justify-between border-b border-b-gray-300 pb-8">
+                <div className="flex items-center justify-between border-b border-b-gray-300 dark:border-b-gray-500 pb-8 transition-colors duration-300">
                   <div>
                     <div className="flex items-center gap-2.5">
-                      <p className="text-[1.8rem]">{task.title}</p>
+                      <p className="text-[1.8rem] truncate max-w-[15rem]">
+                        {task.title}
+                      </p>
                       <span
                         className={`inline-flex items-center gap-1 px-4 py-1 rounded-full text-[1.2rem] ${PRIORITY_COLORS[task.priority].bg} ${PRIORITY_COLORS[task.priority].text}`}
                       >
                         {PRIORITY[task.priority]}
                       </span>
                     </div>
-                    <p className="text-[1.4rem]">
+                    {task.description && (
+                      <p className="text-gray-600 text-[1.4rem] dark:text-gray-300 line-clamp-2">
+                        {task.description}
+                      </p>
+                    )}
+                    <p className="text-[1.2rem] dark:text-gray-400">
                       {task.updatedAt
                         ? "Cập nhật " + formatTime(task.updatedAt)
                         : "Tạo " + formatTime(task.createdAt)}
@@ -64,12 +71,12 @@ function BoardView({ filteredTask }: BoardViewProp) {
                     {statusDeadline && (
                       <>
                         {statusDeadline === "expired" && (
-                          <span className="text-red-600 text-[1.2rem] px-4 py-1 rounded-full bg-red-50">
+                          <span className="text-red-600 text-[1.2rem] px-4 py-1 rounded-full bg-red-50 dark:bg-red-900/30 transition-colors duration-300">
                             Đã quá hạn
                           </span>
                         )}
                         {statusDeadline === "warning" && (
-                          <span className="text-amber-600 text-[1.2rem] p-4 py-1 rounded-full bg-red-50">
+                          <span className="text-amber-600 text-[1.2rem] p-4 py-1 rounded-full bg-red-50 dark:bg-amber-900/30 transition-colors duration-300">
                             Sắp tới hạn
                           </span>
                         )}
@@ -78,13 +85,13 @@ function BoardView({ filteredTask }: BoardViewProp) {
                   </div>
                   <div className="flex items-center gap-2.5">
                     <button
-                      className="p-3 rounded-md bg-amber-500 hover:bg-amber-600 text-white transition-colors duration-300"
+                      className="p-3 rounded-md bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-700 text-white transition-colors duration-300 "
                       onClick={() => setOpenActionTaskModal(task)}
                     >
                       <Edit size={16} />
                     </button>
                     <button
-                      className="p-3 rounded-md bg-red-500 hover:bg-red-600 text-white transition-colors duration-300"
+                      className="p-3 rounded-md bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white transition-colors duration-300 "
                       onClick={() => setOpenDeleteModal([task.id])}
                     >
                       <Trash size={16} />
@@ -110,7 +117,9 @@ function BoardView({ filteredTask }: BoardViewProp) {
           })}
         </div>
       ) : (
-        <div className="w-full text-center py-16">Không có task nào!</div>
+        <div className="w-full text-center py-16 dark:text-gray-400 transition-colors duration-300">
+          Không có task nào!
+        </div>
       )}
 
       <AnimatePresence>

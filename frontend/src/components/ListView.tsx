@@ -21,14 +21,14 @@ function ListView({ filteredTask }: ListViewProp) {
 
   return (
     <div
-      className="rounded-xl overflow-auto border border-gray-200"
+      className="rounded-xl overflow-auto border border-gray-200 dark:border-gray-500 dark:text-gray-100 transition-colors duration-300"
       style={{
         scrollbarWidth: "none",
       }}
     >
       <table className="w-full table-fixed min-w-[600px]">
         <thead>
-          <tr className="border-b border-b-gray-300">
+          <tr className="border-b border-b-gray-300 dark:border-b-gray-500 transition-colors duration-300">
             <th className="text-left py-5 px-4 font-semibold w-[45%]">Task</th>
             <th className="text-left py-5 px-4 font-semibold w-[20%]">
               Trạng thái
@@ -71,7 +71,7 @@ function ListView({ filteredTask }: ListViewProp) {
                       />
                       <div>
                         <div className="flex items-center gap-2.5">
-                          <p className="text-[1.6rem] md:text-[1.8rem] text-gray-900">
+                          <p className="text-[1.6rem] md:text-[1.8rem] text-gray-900 dark:text-gray-100 transition-colors duration-300">
                             {task.title}
                           </p>
 
@@ -79,12 +79,12 @@ function ListView({ filteredTask }: ListViewProp) {
                             {statusDeadline && (
                               <>
                                 {statusDeadline === "expired" && (
-                                  <span className="text-red-600 text-[1.2rem] px-4 py-1 rounded-full bg-red-50">
+                                  <span className="text-red-600 text-[1.2rem] px-4 py-1 rounded-full bg-red-50 dark:bg-red-900/30 transition-colors duration-300">
                                     Đã quá hạn
                                   </span>
                                 )}
                                 {statusDeadline === "warning" && (
-                                  <span className="text-amber-600 text-[1.2rem] p-4 py-1 rounded-full bg-red-50">
+                                  <span className="text-amber-600 text-[1.2rem] p-4 py-1 rounded-full bg-red-50 dark:bg-amber-900/30 transition-colors duration-300">
                                     Sắp tới hạn
                                   </span>
                                 )}
@@ -93,7 +93,7 @@ function ListView({ filteredTask }: ListViewProp) {
                           </div>
                         </div>
                         {task.description && (
-                          <p className="text-gray-600 text-[1.2rem] truncate max-w-[20rem]">
+                          <p className="text-gray-600 text-[1.2rem] truncate max-w-[20rem] dark:text-gray-400">
                             {task.description}
                           </p>
                         )}
@@ -113,13 +113,13 @@ function ListView({ filteredTask }: ListViewProp) {
                   <td className="text-left py-5 px-4 w-[15%]">
                     <div className="flex items-center justify-center gap-2.5">
                       <button
-                        className="p-4 rounded-md bg-amber-500 hover:bg-amber-600 text-white transition-colors duration-300"
+                        className="p-4 rounded-md bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-700 text-white transition-colors duration-300"
                         onClick={() => setOpenActionTaskModal(task)}
                       >
                         <Edit size={16} />
                       </button>
                       <button
-                        className="p-4 rounded-md bg-red-500 hover:bg-red-600 text-white transition-colors duration-300"
+                        className="p-4 rounded-md bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white transition-colors duration-300"
                         onClick={() => {
                           setOpenDeleteModal([task.id]);
                         }}

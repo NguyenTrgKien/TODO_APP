@@ -38,7 +38,7 @@ function TaskContainer({ viewType }: TaskContainerProp) {
     filtered().every((task) => selectTasks.includes(task.id));
 
   return (
-    <div className="w-full h-auto rounded-xl p-8 lg:p-10 bg-white shadow-sm">
+    <div className="w-full h-auto rounded-xl p-8 lg:p-10 bg-white dark:bg-gray-700 dark:text-gray-100 shadow-sm transition-colors duration-300">
       <div className="flex items-start justify-between">
         <h3 className="font-semibold mb-10">Danh sách task</h3>
         {tasks.length > 0 && viewType === "list" && (

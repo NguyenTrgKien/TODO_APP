@@ -59,7 +59,7 @@ function StatBar() {
         return (
           <div
             key={stat.id}
-            className={`w-full h-auto flex items-center gap-5 p-5 lg:p-10 rounded-xl bg-white shadow-sm`}
+            className={`w-full h-auto flex items-center gap-5 p-5 lg:p-10 rounded-xl bg-white dark:bg-gray-700 dark:text-gray-100 shadow-sm transition-colors duration-300`}
           >
             <button
               type="button"
